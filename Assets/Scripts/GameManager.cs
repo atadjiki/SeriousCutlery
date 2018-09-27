@@ -4,33 +4,37 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
-    public Image card;
+    public GameObject cardPanel;
+    public Text sceneTitle;
 
-    private List<Color> colors;
-    private int index;
+    public Card currentCard; //initialize this as the root node
 
-	// Use this for initialization
-	void Start () {
-
-        colors = new List<Color>() { Color.red, Color.blue, Color.cyan, Color.yellow, Color.green };
-        index = 0;
-
-        EventTrigger trigger = card.gameObject.GetComponent<EventTrigger>();
+    // Use this for initialization
+    void Start()
+    {
+       
+        EventTrigger trigger = cardPanel.GetComponent<EventTrigger>();
+        Debug.Log(cardPanel.GetComponent<EventTrigger>().name);
         EventTrigger.Entry entry = new EventTrigger.Entry();
         entry.eventID = EventTriggerType.EndDrag;
         entry.callback.AddListener((data) => { OnEndDrag((PointerEventData)data); });
         trigger.triggers.Add(entry);
+        
+
+        sceneTitle.text = currentCard.title;
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-   
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+
     //to test swiping with
     public void OnEndDrag(PointerEventData eventData)
     {
@@ -41,33 +45,27 @@ public class GameManager : MonoBehaviour {
         Debug.Log("norm + " + dragVectorDirection);
         DraggedDirection direction = GetDragDirection(dragVectorDirection);
 
-        //if swipe right, go to next color
-        if(direction == DraggedDirection.Right){
-            if (index < colors.Count-1)
+        //if swipe right, go to the right node of the current card
+        if (direction == DraggedDirection.Right)
+        {
+
+            if (currentCard.rightNode != null)
             {
-                index++;
-                card.color = colors[index];
+                Debug.Log("Moving to left node");
+                currentCard = currentCard.rightNode; //set current node to right child
+                sceneTitle.text = currentCard.title;
 
             }
-            else if (index == colors.Count-1)
+
+        }
+        else if (direction == DraggedDirection.Left)
+        {
+
+            if (currentCard.leftNode != null)
             {
-                index = 0;
-                card.color = colors[index];
-
-
-            }
-        } else if(direction == DraggedDirection.Left){
-            if (index > 0)
-            {
-                index--;
-                card.color = colors[index];
-
-
-            }
-            else if (index == 0)
-            {
-                index = colors.Count - 1;
-                card.color = colors[index];
+                Debug.Log("Moving to left node");
+                currentCard = currentCard.leftNode; //set current node to right child
+                sceneTitle.text = currentCard.title;
 
             }
         }
