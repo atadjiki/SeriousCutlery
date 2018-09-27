@@ -9,7 +9,10 @@ public class GameManager : MonoBehaviour
 
     public GameObject cardPanel;
     public RawImage cardImage;
-    public Text sceneTitle;
+    public Text cardTitle;
+    public Text leftText;
+    public Text rightText;
+    public Text cardBody;
 
     public Card currentCard; //initialize this as the root node
 
@@ -23,10 +26,13 @@ public class GameManager : MonoBehaviour
         entry.eventID = EventTriggerType.EndDrag;
         entry.callback.AddListener((data) => { OnEndDrag((PointerEventData)data); });
         trigger.triggers.Add(entry);
-        
 
-        sceneTitle.text = currentCard.title;
+        cardTitle.text = currentCard.title;
+        cardBody.text = currentCard.body;
         cardImage.texture = currentCard.image;
+        leftText.text = currentCard.leftNode.title;
+        rightText.text = currentCard.rightNode.title;
+        
 
     }
 
@@ -55,7 +61,7 @@ public class GameManager : MonoBehaviour
             {
 
                 currentCard = currentCard.rightNode; //set current node to right child
-                sceneTitle.text = currentCard.title;
+                cardTitle.text = currentCard.title;
                 cardImage.texture = currentCard.image;
                 Debug.Log("Moving to right node: " + currentCard.title);
 
@@ -69,7 +75,7 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("Moving to left node");
                 currentCard = currentCard.leftNode; //set current node to right child
-                sceneTitle.text = currentCard.title;
+                cardTitle.text = currentCard.title;
                 cardImage.texture = currentCard.image;
                 Debug.Log("Moving to right node: " + currentCard.title);
 

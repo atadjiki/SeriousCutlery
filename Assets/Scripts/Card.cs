@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Card : MonoBehaviour {
 
     public string title;
+    public string body;
     public Card leftNode;
     public Card rightNode;
     public Color color;
