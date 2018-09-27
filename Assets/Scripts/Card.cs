@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class Card : MonoBehaviour {
 
     public string title;
-    public Image image;
     public Card leftNode;
     public Card rightNode;
     public Color color;
+    public Texture2D image;
 
 	// Use this for initialization
 	void Start () {

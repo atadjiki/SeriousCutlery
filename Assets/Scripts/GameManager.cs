@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
 
     public GameObject cardPanel;
+    public RawImage cardImage;
     public Text sceneTitle;
 
     public Card currentCard; //initialize this as the root node
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
         
 
         sceneTitle.text = currentCard.title;
+        cardImage.texture = currentCard.image;
 
     }
 
@@ -41,8 +43,8 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Press position + " + eventData.pressPosition);
         Debug.Log("End position + " + eventData.position);
+
         Vector3 dragVectorDirection = (eventData.position - eventData.pressPosition).normalized;
-        Debug.Log("norm + " + dragVectorDirection);
         DraggedDirection direction = GetDragDirection(dragVectorDirection);
 
         //if swipe right, go to the right node of the current card
@@ -51,9 +53,11 @@ public class GameManager : MonoBehaviour
 
             if (currentCard.rightNode != null)
             {
-                Debug.Log("Moving to left node");
+
                 currentCard = currentCard.rightNode; //set current node to right child
                 sceneTitle.text = currentCard.title;
+                cardImage.texture = currentCard.image;
+                Debug.Log("Moving to right node: " + currentCard.title);
 
             }
 
@@ -66,6 +70,8 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Moving to left node");
                 currentCard = currentCard.leftNode; //set current node to right child
                 sceneTitle.text = currentCard.title;
+                cardImage.texture = currentCard.image;
+                Debug.Log("Moving to right node: " + currentCard.title);
 
             }
         }
