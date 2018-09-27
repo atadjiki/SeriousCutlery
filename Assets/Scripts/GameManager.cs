@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class OnSwipe : MonoBehaviour {
+public class GameManager : MonoBehaviour {
 
-    Image card;
+    public Image card;
 
     private List<Color> colors;
     private int index;
@@ -17,9 +17,7 @@ public class OnSwipe : MonoBehaviour {
         colors = new List<Color>() { Color.red, Color.blue, Color.cyan, Color.yellow, Color.green };
         index = 0;
 
-        card = this.gameObject.GetComponent<Image>();
-
-        EventTrigger trigger = GetComponent<EventTrigger>();
+        EventTrigger trigger = card.gameObject.GetComponent<EventTrigger>();
         EventTrigger.Entry entry = new EventTrigger.Entry();
         entry.eventID = EventTriggerType.EndDrag;
         entry.callback.AddListener((data) => { OnEndDrag((PointerEventData)data); });
@@ -73,8 +71,6 @@ public class OnSwipe : MonoBehaviour {
 
             }
         }
-
-
     }
 
     /* Following code from: 
