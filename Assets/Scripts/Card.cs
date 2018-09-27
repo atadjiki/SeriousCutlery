@@ -11,6 +11,10 @@ public class Card : MonoBehaviour {
     public Card rightNode;
     public Color color;
     public Texture2D image;
+    public int spoonModifier;
+    public int happinessModifier;
+
+    public enum CardType { Action, Event, Activity, Day};
 
 	// Use this for initialization
 	void Start () {

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,15 +7,20 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-
+    //UI variables
     public GameObject cardPanel;
     public RawImage cardImage;
     public Text cardTitle;
     public Text leftText;
     public Text rightText;
     public Text cardBody;
+    public Text spoonsText;
+    public Text happinessText;
 
+    //game variables
     public Card currentCard; //initialize this as the root node
+    public int spoons;
+    public int happiness;
 
     // Use this for initialization
     void Start()
@@ -30,8 +36,11 @@ public class GameManager : MonoBehaviour
         cardTitle.text = currentCard.title;
         cardBody.text = currentCard.body;
         cardImage.texture = currentCard.image;
-        leftText.text = currentCard.leftNode.title;
-        rightText.text = currentCard.rightNode.title;
+        leftText.text = currentCard.leftNode.title + getSpoonText(currentCard.leftNode);
+        rightText.text = currentCard.rightNode.title + getSpoonText(currentCard.rightNode);
+
+        spoonsText.text += spoons;
+        happinessText.text += happiness;
         
 
     }
@@ -53,46 +62,7 @@ public class GameManager : MonoBehaviour
         Vector3 dragVectorDirection = (eventData.position - eventData.pressPosition).normalized;
         DraggedDirection direction = GetDragDirection(dragVectorDirection);
 
-        //if swipe right, go to the right node of the current card
-        if (direction == DraggedDirection.Right)
-        {
-
-            if (currentCard.rightNode != null)
-            {
-
-                currentCard = currentCard.rightNode; //set current node to right child
-                cardTitle.text = currentCard.title;
-                cardBody.text = currentCard.body;
-                cardImage.texture = currentCard.image;
-
-                if (currentCard.leftNode != null)
-                    leftText.text = currentCard.leftNode.title;
-                else
-                    leftText.text = "";
-                if (currentCard.rightNode != null)
-                    rightText.text = currentCard.rightNode.title;
-                else
-                    rightText.text = "";
-                
-                
-                Debug.Log("Moving to right node: " + currentCard.title);
-
-            }
-
-        }
-        else if (direction == DraggedDirection.Left)
-        {
-
-            if (currentCard.leftNode != null)
-            {
-                Debug.Log("Moving to left node");
-                currentCard = currentCard.leftNode; //set current node to right child
-                cardTitle.text = currentCard.title;
-                cardImage.texture = currentCard.image;
-                Debug.Log("Moving to right node: " + currentCard.title);
-
-            }
-        }
+        moveToNextCard(direction);
     }
 
     /* Following code from: 
@@ -120,5 +90,66 @@ public class GameManager : MonoBehaviour
         }
         Debug.Log(draggedDir);
         return draggedDir;
+    }
+
+    private void moveToNextCard(DraggedDirection direction)
+    {
+        //if swipe right, go to the right node of the current card
+        if (direction == DraggedDirection.Right)
+        {
+            if (currentCard.rightNode != null)
+            {
+                currentCard = currentCard.rightNode; //set current node to right child
+                Debug.Log("Moving to right node: " + currentCard.title);
+            }
+
+        }
+        else if (direction == DraggedDirection.Left)
+        {
+            if (currentCard.leftNode != null)
+            {
+                Debug.Log("Moving to left node");
+                currentCard = currentCard.leftNode; //set current node to right child
+            }
+        }
+        if (direction == DraggedDirection.Left || direction == DraggedDirection.Right)
+        {
+            cardTitle.text = currentCard.title;
+            cardBody.text = currentCard.body;
+            cardImage.texture = currentCard.image;
+
+            if (currentCard.leftNode != null)
+                leftText.text = currentCard.leftNode.title + getSpoonText(currentCard.leftNode);
+            else
+                leftText.text = "";
+            if (currentCard.rightNode != null)
+                rightText.text = currentCard.rightNode.title + getSpoonText(currentCard.rightNode); 
+            else
+                rightText.text = "";
+
+            //process variables
+            processCurrentCard();
+        }
+    }
+
+    private string getSpoonText(Card card)
+    {
+        string spoonText = " (";
+        if (card.spoonModifier > 0)
+            spoonText += "+";
+        spoonText += card.spoonModifier + ")";
+
+        return spoonText;
+    }
+
+    private void processCurrentCard()
+    {
+        spoons += currentCard.spoonModifier;
+        happiness += currentCard.happinessModifier;
+
+        spoonsText.text = "Spoons: " + spoons;
+        happinessText.text = "Happiness: " + happiness;
+
+
     }
 }
