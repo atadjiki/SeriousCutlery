@@ -39,11 +39,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cb906f4862994e589eb59fb1ad488d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: Beginning
+  title: 
+  body: 
   leftNode: {fileID: 0}
   rightNode: {fileID: 0}
   color: {r: 0.8584906, g: 0.06074225, b: 0.06074225, a: 0}
-  image: {fileID: 2800000, guid: 40afdaa47c39c433c86704315882dd36, type: 3}
+  image: {fileID: 0}
 --- !u!222 &222770735819778998
 CanvasRenderer:
   m_ObjectHideFlags: 1

@@ -62,7 +62,19 @@ public class GameManager : MonoBehaviour
 
                 currentCard = currentCard.rightNode; //set current node to right child
                 cardTitle.text = currentCard.title;
+                cardBody.text = currentCard.body;
                 cardImage.texture = currentCard.image;
+
+                if (currentCard.leftNode != null)
+                    leftText.text = currentCard.leftNode.title;
+                else
+                    leftText.text = "";
+                if (currentCard.rightNode != null)
+                    rightText.text = currentCard.rightNode.title;
+                else
+                    rightText.text = "";
+                
+                
                 Debug.Log("Moving to right node: " + currentCard.title);
 
             }
