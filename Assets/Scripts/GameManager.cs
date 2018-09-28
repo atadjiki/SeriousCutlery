@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     //UI variables
-    public GameObject cardPanel;
     public RawImage cardImage;
     public Text cardTitle;
     public Text leftText;
@@ -26,8 +25,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
        
-        EventTrigger trigger = cardPanel.GetComponent<EventTrigger>();
-        Debug.Log(cardPanel.GetComponent<EventTrigger>().name);
+        EventTrigger trigger = cardImage.GetComponent<EventTrigger>();
+        Debug.Log(cardImage.GetComponent<EventTrigger>().name);
         EventTrigger.Entry entry = new EventTrigger.Entry();
         entry.eventID = EventTriggerType.EndDrag;
         entry.callback.AddListener((data) => { OnEndDrag((PointerEventData)data); });
@@ -41,7 +40,6 @@ public class GameManager : MonoBehaviour
 
         spoonsText.text += spoons;
         happinessText.text += happiness;
-        
 
     }
 
@@ -62,7 +60,28 @@ public class GameManager : MonoBehaviour
         Vector3 dragVectorDirection = (eventData.position - eventData.pressPosition).normalized;
         DraggedDirection direction = GetDragDirection(dragVectorDirection);
 
-        moveToNextCard(direction);
+        Debug.Log("Pre-Image Pos: " + cardImage.transform.position.ToString());
+
+        if (moveToNextCard(direction)){
+
+            if(direction == DraggedDirection.Left){
+                iTween.MoveTo(cardImage.gameObject,
+                      iTween.Hash("position", cardImage.transform.position += Vector3.left * 3,
+                                  "easetype", iTween.EaseType.easeInOutSine, "time", .2f,
+                                  "onComplete", "SwipeComplete", "onCompleteTarget", this.gameObject));
+            } else if(direction == DraggedDirection.Right){
+                iTween.MoveTo(cardImage.gameObject,
+                              iTween.Hash("position", cardImage.transform.position += Vector3.right * 3,
+                                  "easetype", iTween.EaseType.easeInOutSine, "time", .2f,
+                                          "onComplete", "SwipeComplete", "onCompleteTarget", this.gameObject));
+            }
+
+        }
+    }
+
+    void SwipeComplete(){
+        cardImage.transform.position = new Vector3(0f, 0f);
+        Debug.Log("Post-Image Pos: " + cardImage.transform.position.ToString());
     }
 
     /* Following code from: 
@@ -92,15 +111,20 @@ public class GameManager : MonoBehaviour
         return draggedDir;
     }
 
-    private void moveToNextCard(DraggedDirection direction)
+    private bool moveToNextCard(DraggedDirection direction)
     {
+
+        bool validMove = false;
+
         //if swipe right, go to the right node of the current card
         if (direction == DraggedDirection.Right)
         {
             if (currentCard.rightNode != null)
             {
                 currentCard = currentCard.rightNode; //set current node to right child
-                Debug.Log("Moving to right node: " + currentCard.title);
+
+                processCurrentCard();
+                validMove = true;
             }
 
         }
@@ -108,12 +132,15 @@ public class GameManager : MonoBehaviour
         {
             if (currentCard.leftNode != null)
             {
-                Debug.Log("Moving to left node");
                 currentCard = currentCard.leftNode; //set current node to right child
+                Debug.Log("Moving to left node: " + currentCard.title);
+                processCurrentCard();
+                validMove = true;
             }
         }
         if (direction == DraggedDirection.Left || direction == DraggedDirection.Right)
         {
+            
             cardTitle.text = currentCard.title;
             cardBody.text = currentCard.body;
             cardImage.texture = currentCard.image;
@@ -126,10 +153,9 @@ public class GameManager : MonoBehaviour
                 rightText.text = currentCard.rightNode.title + getSpoonText(currentCard.rightNode); 
             else
                 rightText.text = "";
-
-            //process variables
-            processCurrentCard();
         }
+
+        return validMove;
     }
 
     private string getSpoonText(Card card)
