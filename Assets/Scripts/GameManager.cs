@@ -9,10 +9,13 @@ public class GameManager : MonoBehaviour
 {
     //UI variables
     public RawImage cardImage;
+    public RawImage nextCardImage;
     public Text cardTitle;
+    public Text nextCardTitle;
     public Text leftText;
     public Text rightText;
     public Text cardBody;
+    public Text nextCardBody;
     public Text spoonsText;
     public Text happinessText;
 
@@ -24,7 +27,7 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-       
+
         EventTrigger trigger = cardImage.GetComponent<EventTrigger>();
         Debug.Log(cardImage.GetComponent<EventTrigger>().name);
         EventTrigger.Entry entry = new EventTrigger.Entry();
@@ -50,7 +53,9 @@ public class GameManager : MonoBehaviour
     }
 
 
-    //to test swiping with
+    /*
+     * Swipes to the next card
+     */ 
     public void OnEndDrag(PointerEventData eventData)
     {
 
@@ -62,53 +67,76 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Pre-Image Pos: " + cardImage.transform.position.ToString());
 
-        if (moveToNextCard(direction)){
+        //set the next card image to the nove we are moving to
+        if (direction == DraggedDirection.Left)
+            setNextCard(currentCard.leftNode);
+        else if (direction == DraggedDirection.Right)
+            setNextCard(currentCard.rightNode);
 
-            if(direction == DraggedDirection.Left){
-                iTween.MoveTo(cardImage.gameObject,
-                      iTween.Hash("position", cardImage.transform.position += Vector3.left * 3,
-                                  "easetype", iTween.EaseType.easeInOutSine, "time", .2f,
-                                  "onComplete", "SwipeComplete", "onCompleteTarget", this.gameObject));
-            } else if(direction == DraggedDirection.Right){
-                iTween.MoveTo(cardImage.gameObject,
-                              iTween.Hash("position", cardImage.transform.position += Vector3.right * 3,
-                                  "easetype", iTween.EaseType.easeInOutSine, "time", .2f,
-                                          "onComplete", "SwipeComplete", "onCompleteTarget", this.gameObject));
-            }
+        if (moveToNextCard(direction))
+        {   
+            //move and rotate the card
+            DoTinderSwipe(direction);
 
         }
     }
 
-    void SwipeComplete(){
+    private void setNextCard(Card nextCard)
+    {
+        if(nextCard != null){
+            nextCardImage.texture = nextCard.image;
+            nextCardBody.text = nextCard.body;
+            nextCardTitle.text = nextCard.title;
+        }
+
+    }
+
+    /*
+     * Callback function for tween
+     */ 
+    void SwipeComplete()
+    {
         cardImage.transform.position = new Vector3(0f, 0f);
+        cardImage.transform.rotation = Quaternion.Euler(0, 0, 0);
         Debug.Log("Post-Image Pos: " + cardImage.transform.position.ToString());
+        Debug.Log("Post-Image Rot: " + cardImage.transform.rotation.ToString());
+
     }
 
-    /* Following code from: 
-     * http://gamedevelopertips.com/how-detect-swipe-direction-unity/
-     */
-    private enum DraggedDirection
+    /*
+     * Animates the current card and moves it out of the screen
+     */ 
+    void DoTinderSwipe(DraggedDirection direction)
     {
-        Up,
-        Down,
-        Right,
-        Left
-    }
-    private DraggedDirection GetDragDirection(Vector3 dragVector)
-    {
-        float positiveX = Mathf.Abs(dragVector.x);
-        float positiveY = Mathf.Abs(dragVector.y);
-        DraggedDirection draggedDir;
-        if (positiveX > positiveY)
+        if (direction == DraggedDirection.Left)
         {
-            draggedDir = (dragVector.x > 0) ? DraggedDirection.Right : DraggedDirection.Left;
+
+            float tiltAroundZ = 35f;
+            Quaternion target = Quaternion.Euler(0, 0, tiltAroundZ);
+
+            // Dampen towards the target rotation
+            cardImage.transform.rotation = Quaternion.Slerp(cardImage.transform.rotation, target, 0.5f);
+
+            iTween.MoveTo(cardImage.gameObject,
+                  iTween.Hash("position", cardImage.transform.position += Vector3.left * 5.5f,
+                              "easetype", iTween.EaseType.linear, "time", 0.5f,
+                              "onComplete", "SwipeComplete", "onCompleteTarget", this.gameObject));
         }
-        else
+        else if (direction == DraggedDirection.Right)
         {
-            draggedDir = (dragVector.y > 0) ? DraggedDirection.Up : DraggedDirection.Down;
+
+            float tiltAroundZ = -35f;
+            Quaternion target = Quaternion.Euler(0, 0, tiltAroundZ);
+
+            // Dampen towards the target rotation
+            cardImage.transform.rotation = Quaternion.Slerp(cardImage.transform.rotation, target, 0.5f);
+
+            iTween.MoveTo(cardImage.gameObject,
+                          iTween.Hash("position", cardImage.transform.position += Vector3.right * 5.5f,
+                                      "easetype", iTween.EaseType.linear, "time", 0.5f,
+                                      "onComplete", "SwipeComplete", "onCompleteTarget", this.gameObject));
         }
-        Debug.Log(draggedDir);
-        return draggedDir;
+
     }
 
     private bool moveToNextCard(DraggedDirection direction)
@@ -140,7 +168,7 @@ public class GameManager : MonoBehaviour
         }
         if (direction == DraggedDirection.Left || direction == DraggedDirection.Right)
         {
-            
+
             cardTitle.text = currentCard.title;
             cardBody.text = currentCard.body;
             cardImage.texture = currentCard.image;
@@ -150,7 +178,7 @@ public class GameManager : MonoBehaviour
             else
                 leftText.text = "";
             if (currentCard.rightNode != null)
-                rightText.text = currentCard.rightNode.title + getSpoonText(currentCard.rightNode); 
+                rightText.text = currentCard.rightNode.title + getSpoonText(currentCard.rightNode);
             else
                 rightText.text = "";
         }
@@ -178,4 +206,32 @@ public class GameManager : MonoBehaviour
 
 
     }
+
+    /* Following code from: 
+     * http://gamedevelopertips.com/how-detect-swipe-direction-unity/
+     */
+    private enum DraggedDirection
+    {
+        Up,
+        Down,
+        Right,
+        Left
+    }
+    private DraggedDirection GetDragDirection(Vector3 dragVector)
+    {
+        float positiveX = Mathf.Abs(dragVector.x);
+        float positiveY = Mathf.Abs(dragVector.y);
+        DraggedDirection draggedDir;
+        if (positiveX > positiveY)
+        {
+            draggedDir = (dragVector.x > 0) ? DraggedDirection.Right : DraggedDirection.Left;
+        }
+        else
+        {
+            draggedDir = (dragVector.y > 0) ? DraggedDirection.Up : DraggedDirection.Down;
+        }
+        Debug.Log(draggedDir);
+        return draggedDir;
+    }
+   
 }
