@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public Text nextCardBody;
     public Text spoonsText;
     public Text happinessText;
+    public bool allowDrag = true;
 
     //game variables
     public Card currentCard; //initialize this as the root node
@@ -58,27 +59,33 @@ public class GameManager : MonoBehaviour
      */ 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if(allowDrag){
 
-        Debug.Log("Press position + " + eventData.pressPosition);
-        Debug.Log("End position + " + eventData.position);
+            allowDrag = false;
+            Debug.Log("Press position + " + eventData.pressPosition);
+            Debug.Log("End position + " + eventData.position);
 
-        Vector3 dragVectorDirection = (eventData.position - eventData.pressPosition).normalized;
-        DraggedDirection direction = GetDragDirection(dragVectorDirection);
+            Vector3 dragVectorDirection = (eventData.position - eventData.pressPosition).normalized;
+            DraggedDirection direction = GetDragDirection(dragVectorDirection);
 
-        Debug.Log("Pre-Image Pos: " + cardImage.transform.position.ToString());
+            Debug.Log("Pre-Image Pos: " + cardImage.transform.position.ToString());
 
-        //set the next card image to the nove we are moving to
-        if (direction == DraggedDirection.Left)
-            setNextCard(currentCard.leftNode);
-        else if (direction == DraggedDirection.Right)
-            setNextCard(currentCard.rightNode);
+            //set the next card image to the nove we are moving to
+            if (direction == DraggedDirection.Left)
+                setNextCard(currentCard.leftNode);
+            else if (direction == DraggedDirection.Right)
+                setNextCard(currentCard.rightNode);
 
-        if (moveToNextCard(direction))
-        {   
-            //move and rotate the card
-            DoTinderSwipe(direction);
+            if (moveToNextCard(direction))
+            {
+                //move and rotate the card
+                DoTinderSwipe(direction);
 
+            }
         }
+
+
+
     }
 
     private void setNextCard(Card nextCard)
@@ -101,6 +108,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("Post-Image Pos: " + cardImage.transform.position.ToString());
         Debug.Log("Post-Image Rot: " + cardImage.transform.rotation.ToString());
 
+        allowDrag = true;
+
     }
 
     /*
@@ -111,29 +120,29 @@ public class GameManager : MonoBehaviour
         if (direction == DraggedDirection.Left)
         {
 
-            float tiltAroundZ = 35f;
+            float tiltAroundZ = 25f;
             Quaternion target = Quaternion.Euler(0, 0, tiltAroundZ);
 
             // Dampen towards the target rotation
-            cardImage.transform.rotation = Quaternion.Slerp(cardImage.transform.rotation, target, 0.5f);
+            cardImage.transform.rotation = Quaternion.Slerp(cardImage.transform.rotation, target, 0.3f);
 
             iTween.MoveTo(cardImage.gameObject,
-                  iTween.Hash("position", cardImage.transform.position += Vector3.left * 5.5f,
-                              "easetype", iTween.EaseType.linear, "time", 0.5f,
+                  iTween.Hash("x", -6,
+                              "time", 0.9f,
                               "onComplete", "SwipeComplete", "onCompleteTarget", this.gameObject));
         }
         else if (direction == DraggedDirection.Right)
         {
 
-            float tiltAroundZ = -35f;
+            float tiltAroundZ = -25f;
             Quaternion target = Quaternion.Euler(0, 0, tiltAroundZ);
 
             // Dampen towards the target rotation
-            cardImage.transform.rotation = Quaternion.Slerp(cardImage.transform.rotation, target, 0.5f);
+            cardImage.transform.rotation = Quaternion.Slerp(cardImage.transform.rotation, target, 0.3f);
 
             iTween.MoveTo(cardImage.gameObject,
-                          iTween.Hash("position", cardImage.transform.position += Vector3.right * 5.5f,
-                                      "easetype", iTween.EaseType.linear, "time", 0.5f,
+                          iTween.Hash("x", 6,
+                                     "time", 0.9f,
                                       "onComplete", "SwipeComplete", "onCompleteTarget", this.gameObject));
         }
 
