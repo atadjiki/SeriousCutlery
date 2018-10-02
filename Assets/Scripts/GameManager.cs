@@ -8,6 +8,9 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     //UI variables
+    public List<Texture2D> backgrounds;
+    public int backgroundIndex;
+    public RawImage background;
     public RawImage cardImage;
     public RawImage nextCardImage;
     public Text cardTitle;
@@ -27,8 +30,11 @@ public class GameManager : MonoBehaviour
 
     //game variables
     public Card currentCard; //initialize this as the root node
+    public List<Card> chores;
+    public int choreIndex;
     public int energy;
     public int happiness;
+    
 
     //game bools
     private bool forgotGroceryList = false;
@@ -44,7 +50,8 @@ public class GameManager : MonoBehaviour
         entry.callback.AddListener((data) => { OnEndDrag((PointerEventData)data); });
         trigger.triggers.Add(entry);
 
-
+        background.texture = backgrounds[backgroundIndex];
+        backgroundIndex++;
 
         energyText.text += energy;
         happinessText.text += happiness;
@@ -64,12 +71,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(energy <= 0){
+        //if(energy <= 0){
 
-            currentCard = GameObject.Find("Lose").GetComponent<Card>();
-            initializeGame();
+        //    currentCard = GameObject.Find("Lose").GetComponent<Card>();
+        //    initializeGame();
             
-        }
+        //}
     }
 
 
@@ -127,7 +134,6 @@ public class GameManager : MonoBehaviour
         Debug.Log("Post-Image Rot: " + cardImage.transform.rotation.ToString());
 
         allowDrag = true;
-
     }
 
     /*
@@ -201,11 +207,11 @@ public class GameManager : MonoBehaviour
             cardImage.texture = currentCard.image;
 
             if (currentCard.leftNode != null)
-                leftText.text = currentCard.leftNodeText + getSpoonText(currentCard.leftNode);
+                leftText.text = currentCard.leftNodeText + getEnergyText(currentCard.leftNode);
             else
                 leftText.text = "";
             if (currentCard.rightNode != null)
-                rightText.text = currentCard.rightNodeText + getSpoonText(currentCard.rightNode);
+                rightText.text = currentCard.rightNodeText + getEnergyText(currentCard.rightNode);
             else
                 rightText.text = "";
         }
@@ -213,17 +219,17 @@ public class GameManager : MonoBehaviour
         return validMove;
     }
 
-    private string getSpoonText(Card card)
+    private string getEnergyText(Card card)
     {
-        string spoonText = "";
+        string energyText = "";
         if(displayModifiers){
-            spoonText = " (";
+            energyText = " (";
             if (card.spoonModifier > 0)
-                spoonText += "+";
-            spoonText += card.spoonModifier + ")";
+                energyText += "+";
+            energyText += card.spoonModifier + ")";
         }
 
-        return spoonText;
+        return energyText;
     }
 
     private void processCurrentCard()
@@ -231,35 +237,74 @@ public class GameManager : MonoBehaviour
         energy += currentCard.spoonModifier;
         happiness += currentCard.happinessModifier;
 
-        energyText.text = "Spoons: " + energy;
+        energyText.text = "Energy: " + energy;
         happinessText.text = "Happiness: " + happiness;
 
-        if(currentCard.checkAction == Card.ActionType.Done){
+        checkDone();                                                             
+        checkForgotGroceryList();
+        checkStatusCard();
 
+    }
+
+    private void checkStatusCard()
+    {
+        if(currentCard.type == Card.CardType.Status)
+        {
+            //generate status card
+            currentCard = GameObject.Find("Status").GetComponent<Card>();
+            cardTitle.text = currentCard.title;
+            cardBody.text = currentCard.body;
+            cardImage.texture = currentCard.image;
+            if(chores.Count > choreIndex)
+            {
+                    
+                currentCard.rightNode = chores[choreIndex];
+                currentCard.rightNodeText = "Continue...";
+                choreIndex++;
+            }
+            if(backgrounds.Count > backgroundIndex)
+            {
+                background.texture = backgrounds[backgroundIndex];
+                backgroundIndex++;
+            }
+            
+            
+            
+        }
+    }
+
+    private void checkDone()
+    {
+        if (currentCard.checkAction == Card.ActionType.Done)
+        {
             initializeGame();
         }
+    }
 
-        if(currentCard.action == Card.ActionType.ForgotGroceryList){
+    private void checkForgotGroceryList()
+    {
+        if (currentCard.action == Card.ActionType.ForgotGroceryList)
+        {
             forgotGroceryList = true;
         }
 
-        if(currentCard.checkAction == Card.ActionType.ForgotGroceryList && forgotGroceryList){
+        if (currentCard.checkAction == Card.ActionType.ForgotGroceryList && forgotGroceryList)
+        {
 
             currentCard = GameObject.Find("Remember You Forgot Something").GetComponent<Card>();
             cardTitle.text = currentCard.title;
             cardBody.text = currentCard.body;
             cardImage.texture = currentCard.image;
             if (currentCard.leftNode != null)
-                leftText.text = currentCard.leftNodeText + getSpoonText(currentCard.leftNode);
+                leftText.text = currentCard.leftNodeText + getEnergyText(currentCard.leftNode);
             else
                 leftText.text = "";
             if (currentCard.rightNode != null)
-                rightText.text = currentCard.rightNodeText + getSpoonText(currentCard.rightNode);
+                rightText.text = currentCard.rightNodeText + getEnergyText(currentCard.rightNode);
             else
                 rightText.text = "";
 
         }
-
     }
 
     /* Following code from: 
@@ -294,11 +339,11 @@ public class GameManager : MonoBehaviour
         cardBody.text = currentCard.body;
         cardImage.texture = currentCard.image;
         if (currentCard.leftNode != null)
-            leftText.text = currentCard.leftNodeText + getSpoonText(currentCard.leftNode);
+            leftText.text = currentCard.leftNodeText + getEnergyText(currentCard.leftNode);
         else
             leftText.text = "";
         if (currentCard.rightNode != null)
-            rightText.text = currentCard.rightNodeText + getSpoonText(currentCard.rightNode);
+            rightText.text = currentCard.rightNodeText + getEnergyText(currentCard.rightNode);
         else
             rightText.text = "";
 

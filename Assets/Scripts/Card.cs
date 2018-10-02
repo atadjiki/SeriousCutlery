@@ -17,8 +17,10 @@ public class Card : MonoBehaviour {
     public int happinessModifier;
     public ActionType action;
     public ActionType checkAction;
+    public CardType type;
 
     public enum ActionType { None, ForgotGroceryList, Done };
+    public enum CardType { None, Status };
 
 	// Use this for initialization
 	void Start () {
