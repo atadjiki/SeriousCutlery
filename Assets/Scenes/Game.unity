@@ -4771,13 +4771,13 @@ MonoBehaviour:
   rightText: {fileID: 1527314713}
   cardBody: {fileID: 1483280695}
   nextCardBody: {fileID: 348180226}
-  energyText: {fileID: 0}
+  energyText: {fileID: 447855007}
   happinessText: {fileID: 1601803926}
   hudPanel: {fileID: 479914506}
   displayModifiers: 0
   displayHUD: 1
   currentCard: {fileID: 167853935}
-  energy: 0
+  energy: 8
   happiness: 8
 --- !u!4 &1633979485
 Transform:

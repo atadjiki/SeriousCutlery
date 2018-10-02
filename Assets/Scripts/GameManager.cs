@@ -100,6 +100,8 @@ public class GameManager : MonoBehaviour
                 //move and rotate the card
                 DoTinderSwipe(direction);
 
+            } else{
+                allowDrag = true;
             }
         }
     }
