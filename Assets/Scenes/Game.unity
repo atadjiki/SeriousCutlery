@@ -229,6 +229,22 @@ Prefab:
       propertyPath: title
       value: Microwave
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: rightNodeText
+      value: Continue..,
+      objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: body
+      value: 'You make eggs using the microwave, and realize you have run out. You
+        will need to visit the grocery store. '
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -385,6 +401,11 @@ Prefab:
       propertyPath: spoonModifier
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -614,6 +635,11 @@ Prefab:
       propertyPath: rightNodeText
       value: Make some eggs
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -749,6 +775,11 @@ Prefab:
       propertyPath: rightNodeText
       value: Get groceries.
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -883,6 +914,11 @@ Prefab:
       propertyPath: rightNodeText
       value: Leave the house.
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -1017,6 +1053,11 @@ Prefab:
       propertyPath: rightNodeText
       value: Purchase Groceries.
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -1307,6 +1348,11 @@ Prefab:
       propertyPath: rightNodeText
       value: Take a vehicle
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -1697,6 +1743,11 @@ Prefab:
       propertyPath: rightNodeText
       value: Wait for the bus
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -1854,7 +1905,7 @@ Prefab:
     - target: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
         type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
         type: 2}
@@ -1931,6 +1982,130 @@ Prefab:
       propertyPath: rightNodeText
       value: Start Over
       objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!1001 &661665143
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1857538192}
+    m_Modifications:
+    - target: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1237346714758948, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
+      propertyPath: m_Name
+      value: Done
+      objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: title
+      value: Home (End)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: body
+      value: 'You are home at last and are able to relax. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: rightNodeText
+      value: Play again!
+      objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: rightNode
+      value: 
+      objectReference: {fileID: 1855630443}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -2065,6 +2240,11 @@ Prefab:
       propertyPath: rightNodeText
       value: Just wing it
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -2282,6 +2462,26 @@ Prefab:
       propertyPath: title
       value: Stove
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: body
+      value: You decide to boil eggs on the stove. How do you continue?
+      objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: leftNodeText
+      value: Cook while sitting down
+      objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: rightNodeText
+      value: Cook while standing
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -2437,6 +2637,11 @@ Prefab:
       propertyPath: rightNodeText
       value: Start the Game!
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 2aceaaafe56aa471b8c5d50f7a53d9e4, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -2612,6 +2817,11 @@ Prefab:
       propertyPath: happinessModifier
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -2752,6 +2962,11 @@ Prefab:
       propertyPath: rightNodeText
       value: Walk across the store to get it.
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -2977,6 +3192,11 @@ Prefab:
       propertyPath: happinessModifier
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -3101,6 +3321,27 @@ Prefab:
         type: 2}
       propertyPath: title
       value: Sit
+      objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: body
+      value: You boil eggs while sitting, and realize you have used your last ones.
+        You must now visit the grocery store.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: happinessModifier
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: rightNodeText
+      value: Continue...
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
@@ -3236,6 +3477,16 @@ Prefab:
         type: 2}
       propertyPath: happinessModifier
       value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: rightNodeText
+      value: Continue...
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
@@ -3427,6 +3678,11 @@ Prefab:
       propertyPath: spoonModifier
       value: -2
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -3618,6 +3874,32 @@ Prefab:
       propertyPath: title
       value: Stand
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: body
+      value: You boil eggs while standing, and realize you have used your last ones.
+        You must now visit the grocery store.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: rightNodeText
+      value: Continue...
+      objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: happinessModifier
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: spoonModifier
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -3777,6 +4059,11 @@ Prefab:
       propertyPath: rightNodeText
       value: Continue...
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -3921,6 +4208,11 @@ Prefab:
       propertyPath: happinessModifier
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -4070,7 +4362,7 @@ Prefab:
         type: 2}
       propertyPath: rightNode
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2055230974}
     - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
         type: 2}
       propertyPath: title
@@ -4090,6 +4382,16 @@ Prefab:
         type: 2}
       propertyPath: happinessModifier
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: rightNodeText
+      value: Continue...
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
@@ -4290,6 +4592,11 @@ Prefab:
       propertyPath: body
       value: You are the store. You gather the groceries from your list.
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -4416,9 +4723,11 @@ MonoBehaviour:
   nextCardBody: {fileID: 348180226}
   spoonsText: {fileID: 447855007}
   happinessText: {fileID: 1601803926}
-  displayModifiers: 1
+  hudPanel: {fileID: 479914506}
+  displayModifiers: 0
+  displayHUD: 0
   currentCard: {fileID: 167853935}
-  spoons: 5
+  spoons: 7
   happiness: 10
 --- !u!4 &1633979485
 Transform:
@@ -4660,6 +4969,11 @@ Prefab:
       propertyPath: rightNodeText
       value: Skip showering
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -4840,6 +5154,21 @@ Prefab:
       propertyPath: happinessModifier
       value: -5
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: rightNodeText
+      value: Have breakfast.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: body
+      value: 'You decide to skip showering. '
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -4985,6 +5314,11 @@ Prefab:
       propertyPath: happinessModifier
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -5159,6 +5493,11 @@ Prefab:
       propertyPath: happinessModifier
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 7f0b2b465f8394c69b157b14e65a8cce, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -5199,6 +5538,7 @@ Transform:
   - {fileID: 693225019}
   - {fileID: 313340147}
   - {fileID: 1562384475}
+  - {fileID: 2055230976}
   - {fileID: 421531439}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -5422,6 +5762,11 @@ Prefab:
       propertyPath: rightNodeText
       value: Tutorial
       objectReference: {fileID: 0}
+    - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 2800000, guid: 2aceaaafe56aa471b8c5d50f7a53d9e4, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -5431,6 +5776,17 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 246077954}
   m_Script: {fileID: 11500000, guid: 7cb906f4862994e589eb59fb1ad488d4, type: 3}
+--- !u!114 &2055230974 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
+    type: 2}
+  m_PrefabInternal: {fileID: 661665143}
+  m_Script: {fileID: 11500000, guid: 7cb906f4862994e589eb59fb1ad488d4, type: 3}
+--- !u!224 &2055230976 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 224176178658956846, guid: 1981ac825e569f64db1c0d91b8908a51,
+    type: 2}
+  m_PrefabInternal: {fileID: 661665143}
 --- !u!1 &2060617657
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,16 +18,22 @@ public class GameManager : MonoBehaviour
     public Text nextCardBody;
     public Text spoonsText;
     public Text happinessText;
+    public GameObject hudPanel;
     public bool displayModifiers;
+    public bool displayHUD;
     private bool allowDrag = true;
+    private int defaultSpoons;
+    private int defaultHappiness;
 
     //game variables
     public Card currentCard; //initialize this as the root node
     public int spoons;
     public int happiness;
 
-    private int defaultSpoons;
-    private int defaultHappiness;
+    //game bools
+    private bool forgotGroceryList = false;
+
+
 
     // Use this for initialization
     void Start()
@@ -57,6 +63,12 @@ public class GameManager : MonoBehaviour
 
         defaultSpoons = spoons;
         defaultHappiness = happiness;
+
+        if(!displayHUD){
+            spoonsText.enabled = false;
+            happinessText.enabled = false;
+            hudPanel.SetActive(false);
+        }
 
     }
 
@@ -244,8 +256,11 @@ public class GameManager : MonoBehaviour
         spoonsText.text = "Spoons: " + spoons;
         happinessText.text = "Happiness: " + happiness;
 
+        if(currentCard.action == Card.ActionType.ForgotGroceryList){
+            forgotGroceryList = true;
+        }
 
-        if(currentCard.checkAction == Card.ActionType.ForgotGroceryList){
+        if(currentCard.checkAction == Card.ActionType.ForgotGroceryList && forgotGroceryList){
 
             currentCard = GameObject.Find("Remember You Forgot Something").GetComponent<Card>();
             cardTitle.text = currentCard.title;
