@@ -18,12 +18,16 @@ public class GameManager : MonoBehaviour
     public Text nextCardBody;
     public Text spoonsText;
     public Text happinessText;
-    public bool allowDrag = true;
+    public bool displayModifiers;
+    private bool allowDrag = true;
 
     //game variables
     public Card currentCard; //initialize this as the root node
     public int spoons;
     public int happiness;
+
+    private int defaultSpoons;
+    private int defaultHappiness;
 
     // Use this for initialization
     void Start()
@@ -39,18 +43,45 @@ public class GameManager : MonoBehaviour
         cardTitle.text = currentCard.title;
         cardBody.text = currentCard.body;
         cardImage.texture = currentCard.image;
-        leftText.text = currentCard.leftNode.title + getSpoonText(currentCard.leftNode);
-        rightText.text = currentCard.rightNode.title + getSpoonText(currentCard.rightNode);
+        if (currentCard.leftNode != null)
+            leftText.text = currentCard.leftNodeText+ getSpoonText(currentCard.leftNode);
+        else
+            leftText.text = "";
+        if (currentCard.rightNode != null)
+            rightText.text = currentCard.rightNodeText + getSpoonText(currentCard.rightNode);
+        else
+            rightText.text = "";
 
         spoonsText.text += spoons;
         happinessText.text += happiness;
+
+        defaultSpoons = spoons;
+        defaultHappiness = happiness;
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(spoons <= 0){
 
+            currentCard = GameObject.Find("Lose").GetComponent<Card>();
+            cardTitle.text = currentCard.title;
+            cardBody.text = currentCard.body;
+            cardImage.texture = currentCard.image;
+            if (currentCard.leftNode != null)
+                leftText.text = currentCard.leftNodeText + getSpoonText(currentCard.leftNode);
+            else
+                leftText.text = "";
+            if (currentCard.rightNode != null)
+                rightText.text = currentCard.rightNodeText + getSpoonText(currentCard.rightNode);
+            else
+                rightText.text = "";
+
+            spoons = defaultSpoons;
+            happiness = defaultHappiness;
+            
+        }
     }
 
 
@@ -83,9 +114,6 @@ public class GameManager : MonoBehaviour
 
             }
         }
-
-
-
     }
 
     private void setNextCard(Card nextCard)
@@ -159,7 +187,7 @@ public class GameManager : MonoBehaviour
             if (currentCard.rightNode != null)
             {
                 currentCard = currentCard.rightNode; //set current node to right child
-
+                Debug.Log("Moving to right node: " + currentCard.title);
                 processCurrentCard();
                 validMove = true;
             }
@@ -183,11 +211,11 @@ public class GameManager : MonoBehaviour
             cardImage.texture = currentCard.image;
 
             if (currentCard.leftNode != null)
-                leftText.text = currentCard.leftNode.title + getSpoonText(currentCard.leftNode);
+                leftText.text = currentCard.leftNodeText + getSpoonText(currentCard.leftNode);
             else
                 leftText.text = "";
             if (currentCard.rightNode != null)
-                rightText.text = currentCard.rightNode.title + getSpoonText(currentCard.rightNode);
+                rightText.text = currentCard.rightNodeText + getSpoonText(currentCard.rightNode);
             else
                 rightText.text = "";
         }
@@ -197,10 +225,13 @@ public class GameManager : MonoBehaviour
 
     private string getSpoonText(Card card)
     {
-        string spoonText = " (";
-        if (card.spoonModifier > 0)
-            spoonText += "+";
-        spoonText += card.spoonModifier + ")";
+        string spoonText = "";
+        if(displayModifiers){
+            spoonText = " (";
+            if (card.spoonModifier > 0)
+                spoonText += "+";
+            spoonText += card.spoonModifier + ")";
+        }
 
         return spoonText;
     }
@@ -213,6 +244,23 @@ public class GameManager : MonoBehaviour
         spoonsText.text = "Spoons: " + spoons;
         happinessText.text = "Happiness: " + happiness;
 
+
+        if(currentCard.checkAction == Card.ActionType.ForgotGroceryList){
+
+            currentCard = GameObject.Find("Remember You Forgot Something").GetComponent<Card>();
+            cardTitle.text = currentCard.title;
+            cardBody.text = currentCard.body;
+            cardImage.texture = currentCard.image;
+            if (currentCard.leftNode != null)
+                leftText.text = currentCard.leftNodeText + getSpoonText(currentCard.leftNode);
+            else
+                leftText.text = "";
+            if (currentCard.rightNode != null)
+                rightText.text = currentCard.rightNodeText + getSpoonText(currentCard.rightNode);
+            else
+                rightText.text = "";
+
+        }
 
     }
 
