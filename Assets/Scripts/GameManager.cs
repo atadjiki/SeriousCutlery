@@ -33,8 +33,6 @@ public class GameManager : MonoBehaviour
     //game bools
     private bool forgotGroceryList = false;
 
-
-
     // Use this for initialization
     void Start()
     {
@@ -46,17 +44,7 @@ public class GameManager : MonoBehaviour
         entry.callback.AddListener((data) => { OnEndDrag((PointerEventData)data); });
         trigger.triggers.Add(entry);
 
-        cardTitle.text = currentCard.title;
-        cardBody.text = currentCard.body;
-        cardImage.texture = currentCard.image;
-        if (currentCard.leftNode != null)
-            leftText.text = currentCard.leftNodeText+ getSpoonText(currentCard.leftNode);
-        else
-            leftText.text = "";
-        if (currentCard.rightNode != null)
-            rightText.text = currentCard.rightNodeText + getSpoonText(currentCard.rightNode);
-        else
-            rightText.text = "";
+
 
         spoonsText.text += spoons;
         happinessText.text += happiness;
@@ -69,6 +57,7 @@ public class GameManager : MonoBehaviour
             happinessText.enabled = false;
             hudPanel.SetActive(false);
         }
+        initializeGame();
 
     }
 
@@ -78,20 +67,7 @@ public class GameManager : MonoBehaviour
         if(spoons <= 0){
 
             currentCard = GameObject.Find("Lose").GetComponent<Card>();
-            cardTitle.text = currentCard.title;
-            cardBody.text = currentCard.body;
-            cardImage.texture = currentCard.image;
-            if (currentCard.leftNode != null)
-                leftText.text = currentCard.leftNodeText + getSpoonText(currentCard.leftNode);
-            else
-                leftText.text = "";
-            if (currentCard.rightNode != null)
-                rightText.text = currentCard.rightNodeText + getSpoonText(currentCard.rightNode);
-            else
-                rightText.text = "";
-
-            spoons = defaultSpoons;
-            happiness = defaultHappiness;
+            initializeGame();
             
         }
     }
@@ -256,6 +232,11 @@ public class GameManager : MonoBehaviour
         spoonsText.text = "Spoons: " + spoons;
         happinessText.text = "Happiness: " + happiness;
 
+        if(currentCard.checkAction == Card.ActionType.Done){
+
+            initializeGame();
+        }
+
         if(currentCard.action == Card.ActionType.ForgotGroceryList){
             forgotGroceryList = true;
         }
@@ -304,6 +285,24 @@ public class GameManager : MonoBehaviour
         }
         Debug.Log(draggedDir);
         return draggedDir;
+    }
+
+    public void initializeGame(){
+        cardTitle.text = currentCard.title;
+        cardBody.text = currentCard.body;
+        cardImage.texture = currentCard.image;
+        if (currentCard.leftNode != null)
+            leftText.text = currentCard.leftNodeText + getSpoonText(currentCard.leftNode);
+        else
+            leftText.text = "";
+        if (currentCard.rightNode != null)
+            rightText.text = currentCard.rightNodeText + getSpoonText(currentCard.rightNode);
+        else
+            rightText.text = "";
+
+        spoons = defaultSpoons;
+        happiness = defaultHappiness;
+        forgotGroceryList = false;
     }
    
 }
