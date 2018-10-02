@@ -4725,7 +4725,7 @@ MonoBehaviour:
   happinessText: {fileID: 1601803926}
   hudPanel: {fileID: 479914506}
   displayModifiers: 0
-  displayHUD: 0
+  displayHUD: 1
   currentCard: {fileID: 167853935}
   spoons: 7
   happiness: 10
