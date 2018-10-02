@@ -1473,7 +1473,7 @@ GameObject:
   - component: {fileID: 447855008}
   - component: {fileID: 447855007}
   m_Layer: 5
-  m_Name: spoonText
+  m_Name: energyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1529,7 +1529,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Spoons: '
+  m_Text: 'Energy:'
 --- !u!222 &447855008
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2140,7 +2140,7 @@ Prefab:
         type: 2}
       propertyPath: image
       value: 
-      objectReference: {fileID: 2800000, guid: 2aceaaafe56aa471b8c5d50f7a53d9e4, type: 3}
+      objectReference: {fileID: 2800000, guid: 86e6c033c54674e6d8a84d4cb8656651, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1981ac825e569f64db1c0d91b8908a51, type: 2}
   m_IsPrefabAsset: 0
@@ -4771,13 +4771,13 @@ MonoBehaviour:
   rightText: {fileID: 1527314713}
   cardBody: {fileID: 1483280695}
   nextCardBody: {fileID: 348180226}
-  spoonsText: {fileID: 447855007}
+  energyText: {fileID: 0}
   happinessText: {fileID: 1601803926}
   hudPanel: {fileID: 479914506}
   displayModifiers: 0
   displayHUD: 1
   currentCard: {fileID: 167853935}
-  spoons: 8
+  energy: 0
   happiness: 8
 --- !u!4 &1633979485
 Transform:

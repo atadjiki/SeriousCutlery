@@ -16,18 +16,18 @@ public class GameManager : MonoBehaviour
     public Text rightText;
     public Text cardBody;
     public Text nextCardBody;
-    public Text spoonsText;
+    public Text energyText;
     public Text happinessText;
     public GameObject hudPanel;
     public bool displayModifiers;
     public bool displayHUD;
     private bool allowDrag = true;
-    private int defaultSpoons;
+    private int defaultEnergy;
     private int defaultHappiness;
 
     //game variables
     public Card currentCard; //initialize this as the root node
-    public int spoons;
+    public int energy;
     public int happiness;
 
     //game bools
@@ -46,14 +46,14 @@ public class GameManager : MonoBehaviour
 
 
 
-        spoonsText.text += spoons;
+        energyText.text += energy;
         happinessText.text += happiness;
 
-        defaultSpoons = spoons;
+        defaultEnergy = energy;
         defaultHappiness = happiness;
 
         if(!displayHUD){
-            spoonsText.enabled = false;
+            energyText.enabled = false;
             happinessText.enabled = false;
             hudPanel.SetActive(false);
         }
@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(spoons <= 0){
+        if(energy <= 0){
 
             currentCard = GameObject.Find("Lose").GetComponent<Card>();
             initializeGame();
@@ -226,10 +226,10 @@ public class GameManager : MonoBehaviour
 
     private void processCurrentCard()
     {
-        spoons += currentCard.spoonModifier;
+        energy += currentCard.spoonModifier;
         happiness += currentCard.happinessModifier;
 
-        spoonsText.text = "Spoons: " + spoons;
+        energyText.text = "Spoons: " + energy;
         happinessText.text = "Happiness: " + happiness;
 
         if(currentCard.checkAction == Card.ActionType.Done){
@@ -300,7 +300,7 @@ public class GameManager : MonoBehaviour
         else
             rightText.text = "";
 
-        spoons = defaultSpoons;
+        energy = defaultEnergy;
         happiness = defaultHappiness;
         forgotGroceryList = false;
     }
