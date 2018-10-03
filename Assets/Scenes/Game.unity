@@ -382,8 +382,7 @@ Prefab:
     - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
         type: 2}
       propertyPath: body
-      value: 'You make eggs using the microwave, and realize you have run out. You
-        will need to visit the grocery store. '
+      value: You make eggs using the microwave. They aren't as good as you'd like.
       objectReference: {fileID: 0}
     - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
         type: 2}
@@ -898,12 +897,12 @@ Prefab:
     - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
         type: 2}
       propertyPath: body
-      value: You are hungry and need to eat breakfast. How do you continue?
+      value: You are hungry and want to eat. How do you continue?
       objectReference: {fileID: 0}
     - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
         type: 2}
       propertyPath: leftNodeText
-      value: Have a quick breakfast
+      value: Have a quick meal
       objectReference: {fileID: 0}
     - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
         type: 2}
@@ -3031,7 +3030,7 @@ Prefab:
     - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
         type: 2}
       propertyPath: title
-      value: Need to go to the store
+      value: Getting Groceries
       objectReference: {fileID: 0}
     - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
         type: 2}
@@ -4763,8 +4762,8 @@ Prefab:
     - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
         type: 2}
       propertyPath: body
-      value: You boil eggs while sitting, and realize you have used your last ones.
-        You must now visit the grocery store.
+      value: You boil eggs while sitting nearby. The eggs overcook because you weren't
+        paying attention.
       objectReference: {fileID: 0}
     - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
         type: 2}
@@ -5078,13 +5077,13 @@ Prefab:
     - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
         type: 2}
       propertyPath: title
-      value: Fast Breakfast
+      value: Quick meal.
       objectReference: {fileID: 0}
     - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
         type: 2}
       propertyPath: body
-      value: You're all out of leftovers and snacks, and will have to go to the grocery
-        store.
+      value: You decide to order fast food to your apartment. It doesn't taste as
+        good as you'd hoped.
       objectReference: {fileID: 0}
     - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
         type: 2}
@@ -5751,8 +5750,7 @@ Prefab:
     - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
         type: 2}
       propertyPath: body
-      value: You boil eggs while standing, and realize you have used your last ones.
-        You must now visit the grocery store.
+      value: You boil eggs while standing, but doing so makes you feel a bit of fatigue.
       objectReference: {fileID: 0}
     - target: {fileID: 114776980132566832, guid: 1981ac825e569f64db1c0d91b8908a51,
         type: 2}
