@@ -247,6 +247,7 @@ public class GameManager : MonoBehaviour
     {
 
         bool validMove = false;
+        GameObject.Find("Status").GetComponent<Card>().body = "...";
 
         //if swipe right, go to the right node of the current card
         if (direction == DraggedDirection.Right)
