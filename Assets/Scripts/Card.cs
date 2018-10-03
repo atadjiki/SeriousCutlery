@@ -20,7 +20,7 @@ public class Card : MonoBehaviour {
     public CardType type;
 
     public enum ActionType { None, ForgotGroceryList, Done };
-    public enum CardType { None, Status };
+    public enum CardType { None, Status, Checklist };
 
 	// Use this for initialization
 	void Start () {

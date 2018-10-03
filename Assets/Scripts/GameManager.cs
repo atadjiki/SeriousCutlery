@@ -8,6 +8,17 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     //UI variables
+    public GameObject checkList;
+    public Image lineGroceries;
+    public Image lineLaundry;
+    public Image lineMealPrep;
+    public Image lineDog;
+    public Button btnGroceries;
+    public Button btnLaundry;
+    public Button btnMealPrep;
+    public Button btnDog;
+    private bool lockButtons = true;
+
     public List<Texture2D> backgrounds;
     public int backgroundIndex;
     public RawImage background;
@@ -22,6 +33,8 @@ public class GameManager : MonoBehaviour
     public Text energyText;
     public Text happinessText;
     public GameObject hudPanel;
+
+
     public bool displayModifiers;
     public bool displayHUD;
     private bool allowDrag = true;
@@ -43,12 +56,25 @@ public class GameManager : MonoBehaviour
     void Start()
     {
 
-        EventTrigger trigger = cardImage.GetComponent<EventTrigger>();
+        EventTrigger cardImageTrigger = cardImage.GetComponent<EventTrigger>();
         Debug.Log(cardImage.GetComponent<EventTrigger>().name);
-        EventTrigger.Entry entry = new EventTrigger.Entry();
-        entry.eventID = EventTriggerType.EndDrag;
-        entry.callback.AddListener((data) => { OnEndDrag((PointerEventData)data); });
-        trigger.triggers.Add(entry);
+        EventTrigger.Entry cardEntry = new EventTrigger.Entry();
+        cardEntry.eventID = EventTriggerType.EndDrag;
+        cardEntry.callback.AddListener((data) => { OnEndDrag((PointerEventData)data); });
+        cardImageTrigger.triggers.Add(cardEntry);
+
+        EventTrigger checkListTrigger = checkList.GetComponent<EventTrigger>();
+        Debug.Log(checkList.GetComponent<EventTrigger>().name);
+        EventTrigger.Entry checklistEntry = new EventTrigger.Entry();
+        checklistEntry.eventID = EventTriggerType.EndDrag;
+        checklistEntry.callback.AddListener((data) => { DoCheckListSwipe((PointerEventData)data); });
+        checkListTrigger.triggers.Add(checklistEntry);
+
+
+        btnDog.onClick.AddListener(delegate { ChecklistButtonPress(btnDog);});
+        btnGroceries.onClick.AddListener(delegate { ChecklistButtonPress(btnGroceries); });
+        btnLaundry.onClick.AddListener(delegate { ChecklistButtonPress(btnLaundry); });
+        btnMealPrep.onClick.AddListener(delegate { ChecklistButtonPress(btnMealPrep); });
 
         background.texture = backgrounds[backgroundIndex];
         backgroundIndex++;
@@ -71,12 +97,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(energy <= 0){
+        if(energy <= 0){
 
-        //    currentCard = GameObject.Find("Lose").GetComponent<Card>();
-        //    initializeGame();
+            currentCard = GameObject.Find("Lose").GetComponent<Card>();
+            initializeGame();
             
-        //}
+        }
     }
 
 
@@ -101,6 +127,7 @@ public class GameManager : MonoBehaviour
                 setNextCard(currentCard.leftNode);
             else if (direction == DraggedDirection.Right)
                 setNextCard(currentCard.rightNode);
+
 
             if (moveToNextCard(direction))
             {
@@ -130,15 +157,23 @@ public class GameManager : MonoBehaviour
     {
         cardImage.transform.position = new Vector3(0f, 0f);
         cardImage.transform.rotation = Quaternion.Euler(0, 0, 0);
+        nextCardImage.transform.position = new Vector3(0f, 0f);
         Debug.Log("Post-Image Pos: " + cardImage.transform.position.ToString());
         Debug.Log("Post-Image Rot: " + cardImage.transform.rotation.ToString());
 
         allowDrag = true;
     }
 
+    void CheckListSwipeComplete(){
+
+        checkList.transform.position = new Vector3(0f, 0f);
+        checkList.transform.rotation = Quaternion.Euler(0, 0, 0);
+        checkList.gameObject.SetActive(false);
+    }
+
     /*
      * Animates the current card and moves it out of the screen
-     */ 
+     */
     void DoTinderSwipe(DraggedDirection direction)
     {
         if (direction == DraggedDirection.Left)
@@ -170,6 +205,46 @@ public class GameManager : MonoBehaviour
                                       "onComplete", "SwipeComplete", "onCompleteTarget", this.gameObject));
         }
 
+    }
+
+    void DoCheckListSwipe(PointerEventData eventData){
+
+        if (!lockButtons) return;
+
+        Debug.Log("Press position + " + eventData.pressPosition);
+        Debug.Log("End position + " + eventData.position);
+
+        Vector3 dragVectorDirection = (eventData.position - eventData.pressPosition).normalized;
+        DraggedDirection direction = GetDragDirection(dragVectorDirection);
+
+        Debug.Log("Pre-Image Pos: " + checkList.transform.position.ToString());
+
+        if(direction == DraggedDirection.Left){
+
+            float tiltAroundZ = 25f;
+            Quaternion target = Quaternion.Euler(0, 0, tiltAroundZ);
+
+            // Dampen towards the target rotation
+            checkList.transform.rotation = Quaternion.Slerp(checkList.transform.rotation, target, 0.3f);
+
+            iTween.MoveTo(checkList.gameObject,
+                  iTween.Hash("x", -6,
+                              "time", 0.9f,
+                              "onComplete", "CheckListSwipeComplete", "onCompleteTarget", this.gameObject));
+
+        } else if(direction == DraggedDirection.Right){
+
+            float tiltAroundZ = -25f;
+            Quaternion target = Quaternion.Euler(0, 0, tiltAroundZ);
+
+            // Dampen towards the target rotation
+            checkList.transform.rotation = Quaternion.Slerp(checkList.transform.rotation, target, 0.3f);
+
+            iTween.MoveTo(checkList.gameObject,
+                          iTween.Hash("x", 6,
+                                     "time", 0.9f,
+                                      "onComplete", "CheckListSwipeComplete", "onCompleteTarget", this.gameObject));
+        }
     }
 
     private bool moveToNextCard(DraggedDirection direction)
@@ -243,7 +318,16 @@ public class GameManager : MonoBehaviour
         checkDone();                                                             
         checkForgotGroceryList();
         checkStatusCard();
+        checkChecklistCard();
 
+    }
+
+    private void checkChecklistCard(){
+
+        if(currentCard.type == Card.CardType.Checklist){
+
+            showChecklist();
+        }
     }
 
     private void checkStatusCard()
@@ -257,8 +341,7 @@ public class GameManager : MonoBehaviour
             cardImage.texture = currentCard.image;
             if(chores.Count > choreIndex)
             {
-                    
-                currentCard.rightNode = chores[choreIndex];
+                currentCard.rightNode = GameObject.Find("ChecklistCard").GetComponent<Card>();
                 currentCard.rightNodeText = "Continue...";
                 choreIndex++;
             }
@@ -350,6 +433,45 @@ public class GameManager : MonoBehaviour
         energy = defaultEnergy;
         happiness = defaultHappiness;
         forgotGroceryList = false;
+    }
+
+    public void showChecklist(){
+
+        checkList.gameObject.SetActive(true);
+        lockButtons = false;
+    }
+
+    public void ChecklistButtonPress(Button button){
+
+        if(lockButtons == false){
+            if (button.Equals(btnGroceries))
+            {
+                Debug.Log("Groceries Pressed");
+                lineGroceries.gameObject.SetActive(true);
+                btnGroceries.enabled = false;
+            }
+            else if (button.Equals(btnLaundry))
+            {
+                Debug.Log("Laundry Pressed");
+                lineLaundry.gameObject.SetActive(true);
+                btnLaundry.enabled = false;
+            }
+            else if (button.Equals(btnMealPrep))
+            {
+                Debug.Log("Meal Prep Pressed");
+                lineMealPrep.gameObject.SetActive(true);
+                btnMealPrep.enabled = false;
+            }
+            else if (button.Equals(btnDog))
+            {
+                Debug.Log("Dog Pressed");
+                lineDog.gameObject.SetActive(true);
+                btnDog.enabled = false;
+            }
+
+            lockButtons = true;
+        }
+       
     }
    
 }
