@@ -13,14 +13,16 @@ public class Card : MonoBehaviour {
     public string rightNodeText;
     public Color color;
     public Texture2D image;
-    public int spoonModifier;
-    public int happinessModifier;
+    public EnergyMod energyModifier;
+    public HappinessMod happinessModifier;
     public ActionType action;
     public ActionType checkAction;
     public CardType type;
 
+    public enum EnergyMod { None, Low, Medium, High, Extreme };
+    public enum HappinessMod { None, Decrease, Increase };
     public enum ActionType { None, ForgotGroceryList, Done };
-    public enum CardType { None, Status, Checklist };
+    public enum CardType { None, Status, Feedback, Checklist };
 
 	// Use this for initialization
 	void Start () {
