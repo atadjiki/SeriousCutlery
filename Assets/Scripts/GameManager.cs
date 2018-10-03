@@ -377,7 +377,13 @@ public class GameManager : MonoBehaviour
             currentCard.body = generateStatusText();
             Debug.Log("Status Text: " + generateStatusText());
             cardImage.texture = currentCard.image;
-            currentCard.rightNode = GameObject.Find("ChecklistCard").GetComponent<Card>();
+            if(completedAllChores()){
+
+                currentCard.rightNode = GameObject.Find("Done").GetComponent<Card>();
+            }else{
+                currentCard.rightNode = GameObject.Find("ChecklistCard").GetComponent<Card>();
+            }
+
             currentCard.rightNode.rightNodeText = "Continue...";
 
             if(backgrounds.Count > backgroundIndex)
@@ -385,6 +391,18 @@ public class GameManager : MonoBehaviour
                 background.texture = backgrounds[backgroundIndex];
                 backgroundIndex++;
             }
+        }
+    }
+
+    private bool completedAllChores()
+    {
+        if(lineDog.gameObject.activeSelf && lineLaundry.gameObject.activeSelf 
+           && lineMealPrep.gameObject.activeSelf && lineGroceries.gameObject.activeSelf)
+        {
+            return true;
+        }
+        else{
+            return false;
         }
     }
 
