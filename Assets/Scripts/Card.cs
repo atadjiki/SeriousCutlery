@@ -11,15 +11,16 @@ public class Card : MonoBehaviour {
     public string leftNodeText;
     public Card rightNode;
     public string rightNodeText;
-    public Color color;
     public Texture2D image;
     public EnergyMod energyModifier;
     public HappinessMod happinessModifier;
     public ActionType action;
     public ActionType checkAction;
     public CardType type;
+    public bool EnergyBonus;
 
     public enum EnergyMod { None, Low, Medium, High, Extreme };
+
     public enum HappinessMod { None, Decrease, Increase };
     public enum ActionType { None, ForgotGroceryList, Done };
     public enum CardType { None, Status, Feedback, Checklist };

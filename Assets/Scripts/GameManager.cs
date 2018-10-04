@@ -45,7 +45,10 @@ public class GameManager : MonoBehaviour
     public Card groceryChore;
     public Card laundryChore;
     public Card mealPrepChore;
-    
+
+    public enum EndStatus { NightOut, ComeOver, NightAlone, BedEarly, End };
+
+    public bool skipToEnd;
 
     //game bools
     private bool forgotGroceryList = false;
@@ -53,6 +56,8 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.Play();
 
         EventTrigger cardImageTrigger = cardImage.GetComponent<EventTrigger>();
         Debug.Log(cardImage.GetComponent<EventTrigger>().name);
@@ -79,6 +84,13 @@ public class GameManager : MonoBehaviour
 
         initializeGame();
 
+        if(skipToEnd){
+            lineDog.gameObject.SetActive(true);
+            lineLaundry.gameObject.SetActive(true);
+            lineMealPrep.gameObject.SetActive(true);
+            lineGroceries.gameObject.SetActive(true);
+        }
+
     }
 
     // Update is called once per frame
@@ -88,6 +100,7 @@ public class GameManager : MonoBehaviour
 
             currentCard = GameObject.Find("Lose").GetComponent<Card>();
             initializeGame();
+            currentCard.body = generateStatusText();
             
         }
     }
@@ -307,6 +320,7 @@ public class GameManager : MonoBehaviour
     private void processCurrentCard()
     {
         energy += GetEnergyAmount(currentCard.energyModifier);
+        if (currentCard.EnergyBonus) energy++;
         happiness += GetHappinessAmount(currentCard.happinessModifier);
 
         Debug.Log("Energy: " + energy + ", Happiness: " + happiness);
@@ -379,7 +393,7 @@ public class GameManager : MonoBehaviour
             cardImage.texture = currentCard.image;
             if(completedAllChores()){
 
-                currentCard.rightNode = GameObject.Find("Done").GetComponent<Card>();
+                currentCard.rightNode = generateEndCard();
             }else{
                 currentCard.rightNode = GameObject.Find("ChecklistCard").GetComponent<Card>();
             }
@@ -394,6 +408,39 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private Card generateEndCard()
+    {
+        EndStatus endStatus = CalculateEndStatus();
+        Card endCard = GameObject.Find("Done").GetComponent<Card>();
+
+        if (endStatus == EndStatus.NightOut){
+
+            endCard = GameObject.Find("NightOut").GetComponent<Card>();
+
+        } else if(endStatus == EndStatus.ComeOver){
+
+            endCard = GameObject.Find("ComeOver").GetComponent<Card>();
+
+        } else if (endStatus == EndStatus.NightAlone)
+        {
+
+            endCard = GameObject.Find("NightAlone").GetComponent<Card>();
+
+        } else if (endStatus == EndStatus.BedEarly)
+        {
+
+            endCard = GameObject.Find("BedEarly").GetComponent<Card>();
+
+        } else if (endStatus == EndStatus.End){
+
+            endCard = GameObject.Find("Lose").GetComponent<Card>();
+
+        }
+
+        endCard.body += "\n" + generateStatusText();
+        return endCard;
+    }
+
     private bool completedAllChores()
     {
         if(lineDog.gameObject.activeSelf && lineLaundry.gameObject.activeSelf 
@@ -404,6 +451,105 @@ public class GameManager : MonoBehaviour
         else{
             return false;
         }
+    }
+
+    private EndStatus CalculateEndStatus()
+    {
+        float energyPercentage = ((float)energy / defaultEnergy);
+        float happyPercentage = ((float)happiness / defaultHappiness);
+
+        Debug.Log("Energy/Default: " + energyPercentage);
+        Debug.Log("Happiness/Default: " + happyPercentage);
+        //if energy is high
+        if (energyPercentage >= 0.75f)
+        {
+
+            if (happyPercentage >= 0.75f)
+            {
+
+                return EndStatus.NightOut;
+
+            }
+            else if (happyPercentage > 0.5f)
+            {
+
+                return EndStatus.NightOut;
+
+            }
+            else if (happyPercentage > 0.25f)
+            {
+
+                return EndStatus.ComeOver;
+            }
+        }
+        else if (energyPercentage > 0.5f)
+        {
+
+            if (happyPercentage > 0.75f)
+            {
+
+                return EndStatus.NightOut;
+
+            }
+            if (happyPercentage > 0.5f)
+            {
+
+                return EndStatus.ComeOver;
+
+            }
+            else if (happyPercentage > 0.25f)
+            {
+
+                return EndStatus.NightAlone;
+            }
+
+        }
+        else if (energyPercentage > 0.25f)
+        {
+
+            if (happyPercentage > 0.75f)
+            {
+
+                return EndStatus.ComeOver;
+
+            }
+            else if (happyPercentage > 0.5f)
+            {
+
+                return EndStatus.NightAlone;
+
+            }
+            else if (happyPercentage > 0.25f)
+            {
+
+                return EndStatus.BedEarly;
+            }
+
+        }
+        else if (energyPercentage <= 0.00f)
+        {
+
+            if (happyPercentage > 0.75f)
+            {
+
+                return EndStatus.End;
+
+            }
+            else if (happyPercentage > 0.5f)
+            {
+
+                return EndStatus.End;
+
+            }
+            else if (happyPercentage > 0.25f)
+            {
+
+                return EndStatus.End;
+            }
+
+        }
+
+        return EndStatus.End;
     }
 
     private string generateStatusText()
@@ -597,7 +743,7 @@ public class GameManager : MonoBehaviour
         else
             rightText.text = "";
 
-        setNextCard(currentCard);
+           
 
         energy = defaultEnergy;
         happiness = defaultHappiness;
