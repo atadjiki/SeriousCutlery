@@ -584,6 +584,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void initializeGame(){
+
         cardTitle.text = currentCard.title;
         cardBody.text = currentCard.body;
         cardImage.texture = currentCard.image;
@@ -595,6 +596,8 @@ public class GameManager : MonoBehaviour
             rightText.text = currentCard.rightNodeText + getEnergyText(currentCard.rightNode);
         else
             rightText.text = "";
+
+        setNextCard(currentCard);
 
         energy = defaultEnergy;
         happiness = defaultHappiness;
