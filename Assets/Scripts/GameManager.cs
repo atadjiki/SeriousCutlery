@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -74,7 +75,7 @@ public class GameManager : MonoBehaviour
         checkListTrigger.triggers.Add(checklistEntry);
 
 
-        btnDog.onClick.AddListener(delegate { ChecklistButtonPress(btnDog);});
+        btnDog.onClick.AddListener(delegate { ChecklistButtonPress(btnDog); });
         btnGroceries.onClick.AddListener(delegate { ChecklistButtonPress(btnGroceries); });
         btnLaundry.onClick.AddListener(delegate { ChecklistButtonPress(btnLaundry); });
         btnMealPrep.onClick.AddListener(delegate { ChecklistButtonPress(btnMealPrep); });
@@ -84,7 +85,8 @@ public class GameManager : MonoBehaviour
 
         initializeGame();
 
-        if(skipToEnd){
+        if (skipToEnd)
+        {
             lineDog.gameObject.SetActive(true);
             lineLaundry.gameObject.SetActive(true);
             lineMealPrep.gameObject.SetActive(true);
@@ -96,22 +98,24 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(energy <= 0){
+        if (energy <= 0)
+        {
 
             currentCard = GameObject.Find("Lose").GetComponent<Card>();
             initializeGame();
             currentCard.body = generateStatusText();
-            
+
         }
     }
 
 
     /*
      * Swipes to the next card
-     */ 
+     */
     public void OnEndDrag(PointerEventData eventData)
     {
-        if(allowDrag){
+        if (allowDrag)
+        {
 
             allowDrag = false;
             Debug.Log("Press position + " + eventData.pressPosition);
@@ -134,7 +138,9 @@ public class GameManager : MonoBehaviour
                 //move and rotate the card
                 DoTinderSwipe(direction);
 
-            } else{
+            }
+            else
+            {
                 allowDrag = true;
             }
         }
@@ -142,7 +148,8 @@ public class GameManager : MonoBehaviour
 
     private void setNextCard(Card nextCard)
     {
-        if(nextCard != null){
+        if (nextCard != null)
+        {
             nextCardImage.texture = nextCard.image;
             nextCardBody.text = nextCard.body;
             nextCardTitle.text = nextCard.title;
@@ -152,7 +159,7 @@ public class GameManager : MonoBehaviour
 
     /*
      * Callback function for tween
-     */ 
+     */
     void SwipeComplete()
     {
         cardImage.transform.position = new Vector3(0f, 0f);
@@ -164,7 +171,8 @@ public class GameManager : MonoBehaviour
         allowDrag = true;
     }
 
-    void CheckListSwipeComplete(){
+    void CheckListSwipeComplete()
+    {
 
         checkList.transform.position = new Vector3(0f, 0f);
         checkList.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -216,7 +224,8 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void DoCheckListSwipe(PointerEventData eventData){
+    void DoCheckListSwipe(PointerEventData eventData)
+    {
 
         if (!lockButtons) return;
 
@@ -228,7 +237,8 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Pre-Image Pos: " + checkList.transform.position.ToString());
 
-        if(direction == DraggedDirection.Left){
+        if (direction == DraggedDirection.Left)
+        {
 
             float tiltAroundZ = 25f;
             Quaternion target = Quaternion.Euler(0, 0, tiltAroundZ);
@@ -241,7 +251,9 @@ public class GameManager : MonoBehaviour
                               "time", 0.9f,
                               "onComplete", "CheckListSwipeComplete", "onCompleteTarget", this.gameObject));
 
-        } else if(direction == DraggedDirection.Right){
+        }
+        else if (direction == DraggedDirection.Right)
+        {
 
             float tiltAroundZ = -25f;
             Quaternion target = Quaternion.Euler(0, 0, tiltAroundZ);
@@ -307,7 +319,8 @@ public class GameManager : MonoBehaviour
     private string getEnergyText(Card card)
     {
         string energyText = "";
-        if(displayModifiers){
+        if (displayModifiers)
+        {
             energyText = " (";
             if (card.energyModifier > 0)
                 energyText += "+";
@@ -325,43 +338,60 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Energy: " + energy + ", Happiness: " + happiness);
 
-        checkDone();                                                             
+        checkChecklistCard();
+        checkDone();
         checkForgotGroceryList();
         checkFeedbackCard();
         checkStatusCard();
-        checkChecklistCard();
+        checkInitialStatusCard();
+
 
     }
 
     private int GetHappinessAmount(Card.HappinessMod happinessModifier)
     {
-        if(happinessModifier == Card.HappinessMod.Increase){
+        if (happinessModifier == Card.HappinessMod.Increase)
+        {
             return 1;
-        } else if(happinessModifier == Card.HappinessMod.Decrease){
+        }
+        else if (happinessModifier == Card.HappinessMod.Decrease)
+        {
             return -1;
-        } else{
+        }
+        else
+        {
             return 0;
         }
     }
 
     private int GetEnergyAmount(Card.EnergyMod energyModifier)
     {
-        if(energyModifier == Card.EnergyMod.Extreme){
+        if (energyModifier == Card.EnergyMod.Extreme)
+        {
             return -4;
-        } else if(energyModifier == Card.EnergyMod.High){
+        }
+        else if (energyModifier == Card.EnergyMod.High)
+        {
             return -3;
-        } else if(energyModifier == Card.EnergyMod.Medium){
+        }
+        else if (energyModifier == Card.EnergyMod.Medium)
+        {
             return -2;
-        } else if(energyModifier == Card.EnergyMod.Low){
+        }
+        else if (energyModifier == Card.EnergyMod.Low)
+        {
             return -1;
-        } else{
+        }
+        else
+        {
             return 0;
         }
     }
 
     private void checkFeedbackCard()
     {
-        if(currentCard.type == Card.CardType.Feedback){
+        if (currentCard.type == Card.CardType.Feedback)
+        {
 
             //generate feedback card
             cardTitle.text = currentCard.title;
@@ -371,19 +401,40 @@ public class GameManager : MonoBehaviour
         }
     }
 
-   
 
-    private void checkChecklistCard(){
 
-        if(currentCard.type == Card.CardType.Checklist){
+    private void checkChecklistCard()
+    {
 
+        if (currentCard.type == Card.CardType.Checklist)
+        {
+            rightText.text = "Select a chore";
+            Debug.Log("Right text says: " + rightText.text);
             showChecklist();
+        }
+    }
+
+    private void checkInitialStatusCard()
+    {
+        if (currentCard.type == Card.CardType.InitialStatus)
+        {
+            //generate status card
+            cardTitle.text = currentCard.title;
+            currentCard.body = generateStatusText();
+            Debug.Log("Initial Status Text: " + generateStatusText());
+            cardImage.texture = currentCard.image;
+
+            if (backgrounds.Count > backgroundIndex)
+            {
+                background.texture = backgrounds[backgroundIndex];
+                backgroundIndex++;
+            }
         }
     }
 
     private void checkStatusCard()
     {
-        if(currentCard.type == Card.CardType.Status)
+        if (currentCard.type == Card.CardType.Status)
         {
             //generate status card
             currentCard = GameObject.Find("Status").GetComponent<Card>();
@@ -391,16 +442,17 @@ public class GameManager : MonoBehaviour
             currentCard.body = generateStatusText();
             Debug.Log("Status Text: " + generateStatusText());
             cardImage.texture = currentCard.image;
-            if(completedAllChores()){
+            if (completedAllChores())
+            {
 
                 currentCard.rightNode = generateEndCard();
-            }else{
+            }
+            else
+            {
                 currentCard.rightNode = GameObject.Find("ChecklistCard").GetComponent<Card>();
             }
 
-            currentCard.rightNode.rightNodeText = "Continue...";
-
-            if(backgrounds.Count > backgroundIndex)
+            if (backgrounds.Count > backgroundIndex)
             {
                 background.texture = backgrounds[backgroundIndex];
                 backgroundIndex++;
@@ -413,42 +465,51 @@ public class GameManager : MonoBehaviour
         EndStatus endStatus = CalculateEndStatus();
         Card endCard = GameObject.Find("Done").GetComponent<Card>();
 
-        if (endStatus == EndStatus.NightOut){
+        if (endStatus == EndStatus.NightOut)
+        {
 
             endCard = GameObject.Find("NightOut").GetComponent<Card>();
 
-        } else if(endStatus == EndStatus.ComeOver){
+        }
+        else if (endStatus == EndStatus.ComeOver)
+        {
 
             endCard = GameObject.Find("ComeOver").GetComponent<Card>();
 
-        } else if (endStatus == EndStatus.NightAlone)
+        }
+        else if (endStatus == EndStatus.NightAlone)
         {
 
             endCard = GameObject.Find("NightAlone").GetComponent<Card>();
 
-        } else if (endStatus == EndStatus.BedEarly)
+        }
+        else if (endStatus == EndStatus.BedEarly)
         {
 
             endCard = GameObject.Find("BedEarly").GetComponent<Card>();
 
-        } else if (endStatus == EndStatus.End){
+        }
+        else if (endStatus == EndStatus.End)
+        {
 
             endCard = GameObject.Find("Lose").GetComponent<Card>();
 
         }
 
-        endCard.body += "\n" + generateStatusText();
+        endCard.body += generateStatusText();
+        endCard.rightNodeText = "Start Over?";
         return endCard;
     }
 
     private bool completedAllChores()
     {
-        if(lineDog.gameObject.activeSelf && lineLaundry.gameObject.activeSelf 
+        if (lineDog.gameObject.activeSelf && lineLaundry.gameObject.activeSelf
            && lineMealPrep.gameObject.activeSelf && lineGroceries.gameObject.activeSelf)
         {
             return true;
         }
-        else{
+        else
+        {
             return false;
         }
     }
@@ -476,10 +537,14 @@ public class GameManager : MonoBehaviour
                 return EndStatus.NightOut;
 
             }
-            else if (happyPercentage > 0.25f)
+            else if (happyPercentage > 0f)
             {
 
                 return EndStatus.ComeOver;
+            }
+            else
+            {
+                return EndStatus.BedEarly;
             }
         }
         else if (energyPercentage > 0.5f)
@@ -491,90 +556,83 @@ public class GameManager : MonoBehaviour
                 return EndStatus.NightOut;
 
             }
-            if (happyPercentage > 0.5f)
-            {
-
-                return EndStatus.ComeOver;
-
-            }
-            else if (happyPercentage > 0.25f)
-            {
-
-                return EndStatus.NightAlone;
-            }
-
-        }
-        else if (energyPercentage > 0.25f)
-        {
-
-            if (happyPercentage > 0.75f)
-            {
-
-                return EndStatus.ComeOver;
-
-            }
             else if (happyPercentage > 0.5f)
             {
 
-                return EndStatus.NightAlone;
+                return EndStatus.ComeOver;
 
             }
-            else if (happyPercentage > 0.25f)
+            else if (happyPercentage > 0f)
             {
 
+                return EndStatus.NightAlone;
+            }
+            else
+            {
                 return EndStatus.BedEarly;
             }
-
         }
-        else if (energyPercentage <= 0.00f)
+        else if (energyPercentage > 0f)
         {
 
             if (happyPercentage > 0.75f)
             {
 
-                return EndStatus.End;
+                return EndStatus.ComeOver;
 
             }
             else if (happyPercentage > 0.5f)
             {
 
-                return EndStatus.End;
+                return EndStatus.NightAlone;
 
             }
-            else if (happyPercentage > 0.25f)
+            else 
             {
+                return EndStatus.BedEarly;
+            } 
 
-                return EndStatus.End;
-            }
+        }
+        else
+        {
+
+            return EndStatus.End;
 
         }
 
-        return EndStatus.End;
     }
 
     private string generateStatusText()
     {
-        float energyPercentage = ((float) energy / defaultEnergy);
-        float happyPercentage = ((float) happiness / defaultHappiness);
+        float energyPercentage = ((float)energy / defaultEnergy);
+        float happyPercentage = ((float)happiness / defaultHappiness);
 
         Debug.Log("Energy/Default: " + energyPercentage);
         Debug.Log("Happiness/Default: " + happyPercentage);
         //if energy is high
-        if ( energyPercentage >= 0.75f){
+        if (energyPercentage > 0.75f)
+        {
 
-            if(happyPercentage >= 0.75f){
+            if (happyPercentage > 0.75f)
+            {
 
                 return "You're having a great day.";
 
-            } else if(happyPercentage > 0.5f){
+            }
+            else if (happyPercentage > 0.5f)
+            {
 
                 return "Your feet are fine and you feel okay.";
 
-            } else if(happyPercentage > 0.25f){
+            }
+            else
+            {
 
                 return "Your feet are fine but you're feeling upset";
-            } 
-        } else if(energyPercentage > 0.5f){
+            }
+        }
+        else if (energyPercentage > 0.5f)
+        {
 
             if (happyPercentage > 0.75f)
             {
@@ -582,19 +640,21 @@ public class GameManager : MonoBehaviour
                 return "Your feet are sore, but you're feeling great.";
 
             }
-            if (happyPercentage > 0.5f)
+            else if (happyPercentage > 0.5f)
             {
 
                 return "Your feet are sore, but you feel okay.";
 
             }
-            else if (happyPercentage > 0.25f)
+            else
             {
 
                 return "Your feet are sore, and you feel awful.";
             }
 
-        } else if(energyPercentage > 0.25f){
+        }
+        else if (energyPercentage > 0f)
+        {
 
             if (happyPercentage > 0.75f)
             {
@@ -608,14 +668,14 @@ public class GameManager : MonoBehaviour
                 return "Your feet hurt, but you're still feeling okay";
 
             }
-            else if (happyPercentage > 0.25f)
+            else
             {
 
                 return "Your feet hurt, and you're starting to wish you'd stayed in bed today.";
             }
 
         }
-        else if (energyPercentage <= 0.00f)
+        else
         {
 
             if (happyPercentage > 0.75f)
@@ -630,7 +690,7 @@ public class GameManager : MonoBehaviour
                 return "The pain in your feet is unbearable, you'll have to call it a day and start again tomorrow.";
 
             }
-            else if (happyPercentage > 0.25f)
+            else
             {
 
                 return "The pain in your feet is unbearable, today was not a good day";
@@ -638,30 +698,35 @@ public class GameManager : MonoBehaviour
 
         }
 
-        return "Generate Status Text Failed";
     }
 
     private string generateFeedbackText()
     {
         string result = "";
 
-        if(currentCard.energyModifier == Card.EnergyMod.Low){
+        if (currentCard.energyModifier == Card.EnergyMod.Low)
+        {
             result += "It doesn't take much effort. ";
-        } else if (currentCard.energyModifier == Card.EnergyMod.Medium)
+        }
+        else if (currentCard.energyModifier == Card.EnergyMod.Medium)
         {
             result += "It takes a little effort. ";
-        } else if (currentCard.energyModifier == Card.EnergyMod.High)
+        }
+        else if (currentCard.energyModifier == Card.EnergyMod.High)
         {
             result += "It takes a lot of effort. ";
-        } else if (currentCard.energyModifier == Card.EnergyMod.Extreme){
+        }
+        else if (currentCard.energyModifier == Card.EnergyMod.Extreme)
+        {
             result += "It takes tremendous effort. ";
 
-        } 
+        }
 
         if (currentCard.happinessModifier == Card.HappinessMod.Increase)
         {
             result += "You feel a little happier.";
-        }   else if (currentCard.happinessModifier == Card.HappinessMod.Decrease)
+        }
+        else if (currentCard.happinessModifier == Card.HappinessMod.Decrease)
         {
             result += "You feel a little more upset.";
         }
@@ -729,7 +794,8 @@ public class GameManager : MonoBehaviour
         return draggedDir;
     }
 
-    public void initializeGame(){
+    public void initializeGame()
+    {
 
         cardTitle.text = currentCard.title;
         cardBody.text = currentCard.body;
@@ -743,30 +809,31 @@ public class GameManager : MonoBehaviour
         else
             rightText.text = "";
 
-           
-
-        energy = defaultEnergy;
-        happiness = defaultHappiness;
+        energy = Random.Range(defaultEnergy / 2, defaultEnergy);
+        happiness = Random.Range(defaultHappiness / 2, defaultHappiness);
         forgotGroceryList = false;
     }
 
-    public void showChecklist(){
-
+    public void showChecklist()
+    {
+        
+        rightText.text = "Select a chore";
         checkList.gameObject.SetActive(true);
         lockButtons = false;
-        Debug.Log("Right text says: " + rightText.text);
     }
 
-    public void ChecklistButtonPress(Button button){
+    public void ChecklistButtonPress(Button button)
+    {
 
-        if(lockButtons == false){
+        if (lockButtons == false)
+        {
             if (button.Equals(btnGroceries))
             {
                 Debug.Log("Groceries Pressed");
                 lineGroceries.gameObject.SetActive(true);
                 btnGroceries.enabled = false;
                 currentCard = groceryChore;
-                
+
             }
             else if (button.Equals(btnLaundry))
             {
@@ -797,7 +864,7 @@ public class GameManager : MonoBehaviour
             cardImage.texture = currentCard.image;
 
         }
-       
+
     }
-   
+
 }

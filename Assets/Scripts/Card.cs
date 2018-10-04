@@ -23,7 +23,7 @@ public class Card : MonoBehaviour {
 
     public enum HappinessMod { None, Decrease, Increase };
     public enum ActionType { None, ForgotGroceryList, Done };
-    public enum CardType { None, Status, Feedback, Checklist };
+    public enum CardType { None, Status, Feedback, Checklist, InitialStatus };
 
 	// Use this for initialization
 	void Start () {

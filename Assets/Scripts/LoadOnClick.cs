@@ -20,4 +20,9 @@ public class LoadOnClick : MonoBehaviour {
         SceneManager.LoadScene("Game");
 
     }
+
+    public void goToWiki(){
+
+        Application.OpenURL("https://en.wikipedia.org/wiki/Spoon_theory");
+    }
 }
